@@ -1,6 +1,6 @@
 # SIPL Toolkit: формальні мови
 
-![CI](https://github.com/qssjai/TP_project/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/qssjai/TP_project/actions/workflows/ci.yml/badge.svg)](https://github.com/qssjai/TP_project/actions/workflows/ci.yml)
 
 Курсовий проєкт з дисципліни «Теорія програмування».
 
