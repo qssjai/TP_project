@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sipl-toolkit"
+version = "0.3.0"
+description = "Інструменти для курсу «Теорія програмування»: SIPL та формальні мови"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Макарова Софія Денисівна" }]
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.5", "build>=1"]
+
+[project.urls]
+Homepage = "https://github.com/qssjai/TP_project"
+
+[project.scripts]
+sipl = "sipl.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
