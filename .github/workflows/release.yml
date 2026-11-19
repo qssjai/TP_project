@@ -12,17 +12,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -e ".[dev]" && pytest
-      - name: "Перевірка, що версія пакета збігається з тегом"
+
+      - name: Install and test
+        run: |
+          pip install -e ".[dev]" build
+          pytest
+
+      - name: Check package version matches tag
         run: |
           VERSION=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
-          test "v$VERSION" = "${GITHUB_REF_NAME}"
-      - run: python -m build
+          test "v$VERSION" = "$GITHUB_REF_NAME"
+
+      - name: Build
+        run: python -m build
+
+      - name: Extract release notes
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          awk -v v="$VER" '
+            $0 ~ "^## \\[" v "\\]" {f=1; next}
+            /^## \[/ {f=0}
+            f
+          ' CHANGELOG.md > notes.md
+          cat notes.md
+
       - name: GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --notes-file <(awk -v v="${GITHUB_REF_NAME#v}" '$0 ~ "^## \\["v"\\]" {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md)
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --title "$GITHUB_REF_NAME" \
+            --notes-file notes.md
