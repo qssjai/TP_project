@@ -1,0 +1,5 @@
+S → bBA | DcBA | DAAC | AcC
+A → ε | bAc
+B → ε | bB
+C → ε | cC
+D → d | dD

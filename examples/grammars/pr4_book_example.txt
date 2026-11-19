@@ -1,0 +1,5 @@
+S → AbCa | ABB | BScB | aSB
+A → Aa | ε
+B → bB | ε
+C → Dc | Cc | c
+D → Dd

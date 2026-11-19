@@ -1,0 +1,6 @@
+S → AbBE | ADcBE | AEcC
+E → ε | bEc
+A → ε | aA
+B → ε | bB
+C → ε | cC
+D → d | dD
