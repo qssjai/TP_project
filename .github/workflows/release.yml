@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -e ".[dev]" && pytest
-      - name: Перевірка: версія пакета збігається з тегом
+      - name: "Перевірка, що версія пакета збігається з тегом"
         run: |
           VERSION=$(python -c "import tomllib;print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
           test "v$VERSION" = "${GITHUB_REF_NAME}"
